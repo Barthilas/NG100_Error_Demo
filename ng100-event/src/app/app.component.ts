@@ -1,5 +1,5 @@
 //our root app component
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 
 // ------------------------- B COMPONENT -------------------
 
@@ -21,6 +21,11 @@ export class BComponent {
   ngOnInit() {
     //throws error
     this.change.emit('updated text');
+
+    //ok
+    // setTimeout(() => {
+    //   this.change.emit('updated text');
+    // }, 0)
   }
 }
 
@@ -37,9 +42,15 @@ export class App {
   name = 'I am A component';
   text = 'A message for the child component';
 
-  constructor() {}
+  constructor(private cd: ChangeDetectorRef) {}
 
   update(value: string) {
     this.text = value;
+  }
+
+  //Error fix.
+  ngAfterContentChecked()
+  {
+    this.cd.detectChanges();
   }
 }

@@ -3,7 +3,6 @@ import {
   Component,
   ViewContainerRef,
   ViewChild,
-  ChangeDetectorRef,
 } from '@angular/core';
 
 // -------------------------- B COMPONENT -------------------

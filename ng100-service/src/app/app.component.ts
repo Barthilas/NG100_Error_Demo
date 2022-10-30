@@ -1,4 +1,4 @@
-import { Component, Injectable, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Injectable, Input } from '@angular/core';
 type NameChangedFn = (value: string) => void;
 @Injectable({
   providedIn: 'root',
@@ -29,10 +29,16 @@ export class App {
     name = 'I am A component';
     text = 'A message for the child component';
 
-    constructor(sharedService: SharedService) {
+    constructor(sharedService: SharedService, private cd: ChangeDetectorRef) {
         sharedService.onNameChange((value: string) => {
             this.text = value;
         })
+    }
+
+    //Error fix.
+    ngAfterContentChecked()
+    {
+      this.cd.detectChanges();
     }
 }
 
